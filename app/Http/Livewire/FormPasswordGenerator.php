@@ -14,7 +14,7 @@ class FormPasswordGenerator extends Component
     public string $password;
     public int $passwordScore;
 
-    public ?int $length = 24;
+    public ?int $length    = 24;
     public array $includes = [];
 
     public function render(): Factory|View|Application
@@ -22,7 +22,7 @@ class FormPasswordGenerator extends Component
         return view('livewire.form-password-generator');
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->includes = [
             'uppercase',
