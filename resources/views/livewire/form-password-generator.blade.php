@@ -30,15 +30,17 @@
 
     <div class="flex justify-center">
         <div>
-            <div class="flex">
+            <div class="flex flex-col mb-4">
                 <label class="inline-block text-gray-800 self-center" for="passwordLength">
-                    Password length:
+                    Password length: {{ $length }}
                 </label>
-                <input wire:model.defer="length" min="1" max="256" class="w-16 py-1 px-2 rounded-md border border-gray-500 bg-white focus:outline-none mt-1 align-top bg-no-repeat bg-center bg-contain ml-2 self-center cursor-pointer" type="number" value="20" id="passwordLength" />
+                
+                <input wire:model="length" min="4" max="30" step="1" type="range" id="passwordLength" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
+            
+                @error('length')
+                    <span class="text-rose-700 text-sm">{{ $message }}</span>
+                @enderror
             </div>
-            @error('length')
-                <span class="text-rose-700 text-sm">{{ $message }}</span>
-            @enderror
             <div class="flex">
                 <input wire:model.defer="includes" id="includeUppercase" type="checkbox" value="uppercase" class="h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" />
                 <label class="inline-block text-gray-800" for="includeUppercase">

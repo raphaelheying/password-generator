@@ -14,8 +14,13 @@ class FormPasswordGenerator extends Component
     public string $password;
     public int $passwordScore;
 
-    public ?int $length    = 24;
+    public ?int $length = null;
     public array $includes = [];
+    
+    protected $rules = [
+        'length'   => ['required', 'integer', 'min:4', 'max:30'],
+        'includes' => ['required'],
+    ];
 
     public function render(): Factory|View|Application
     {
@@ -24,6 +29,8 @@ class FormPasswordGenerator extends Component
 
     public function mount(): void
     {
+        $this->length   = 15;
+
         $this->includes = [
             'uppercase',
             'lowercase',
@@ -34,10 +41,7 @@ class FormPasswordGenerator extends Component
 
     public function handle(): void
     {
-        $this->validate([
-            'length'   => ['required', 'integer', 'min:0', 'max:256'],
-            'includes' => ['required'],
-        ]);
+        $this->validate();
 
         $generator = new PasswordGenerator(
             $this->length,
